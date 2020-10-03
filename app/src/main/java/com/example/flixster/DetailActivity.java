@@ -52,7 +52,7 @@ public class DetailActivity extends YouTubeBaseActivity {
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
                     JSONArray results = json.jsonObject.getJSONArray("results");
-                    if(results.length() == 0)
+                    if (results.length() == 0)
                         return;
                     String youtubeKey = results.getJSONObject(0).getString("key");
                     Log.d("DetailActivity", youtubeKey);
@@ -68,26 +68,28 @@ public class DetailActivity extends YouTubeBaseActivity {
 
             }
         });
-
     }
 
-    private void initializeYouTube(final String youtubeKey) {
-        youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                Log.d("DetailActivity", "onInitializeSuccess");
+        private void initializeYouTube(final String youtubeKey) {
+            youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
+                @Override
+                public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                    Log.d("DetailActivity", "onInitializeSuccess");
 
-                if (ratingBar.getRating() > 5)
-                    youTubePlayer.loadVideo(youtubeKey);
-                else
-                    youTubePlayer.cueVideo(youtubeKey);
-            }
+                    if (ratingBar.getRating() > 5)
+                        youTubePlayer.loadVideo(youtubeKey);
+                    else
+                        youTubePlayer.cueVideo(youtubeKey);
+                }
 
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                Log.d("DetailActivity", "onInitializeFailure");
-            }
-        });
+                @Override
+                public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+                    Log.d("DetailActivity", "onInitializeFailure");
+                }
+            });
 
-    }
+        }
+
+
+
 }
